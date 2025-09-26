@@ -8,6 +8,26 @@ from kafka import KafkaProducer
 import json
 import time
 from datetime import datetime
+import hashlib
+
+# Fonction partitioner (DefaultPartitioner: hash de clé + round-robin)
+def default_partitioner(key_bytes, all_partitions, available_partitions):
+    if key_bytes:
+        # Partitionnement basé sur hash de la clé
+        partition = int(hashlib.md5(key_bytes).hexdigest(), 16) % len(all_partitions)
+        return partition
+    else:
+        # Round-robin si pas de clé
+        return available_partitions[0]  # Simplifié; pour un vrai round-robin, utiliser un état
+
+# Alternatives (à définir et utiliser à la place de default_partitioner):
+# def round_robin_partitioner(key_bytes, all_partitions, available_partitions):
+#     # Distribution cyclique, ignorant la clé
+#     return available_partitions[0]  # Nécessite un état pour un vrai round-robin
+#
+# def uniform_sticky_partitioner(key_bytes, all_partitions, available_partitions):
+#     # Sticky partitioning: batch vers la même partition, puis changement
+#     return available_partitions[0]  # Nécessite un état pour la gestion
 
 # Configuration du producer
 producer = KafkaProducer(
@@ -17,7 +37,9 @@ producer = KafkaProducer(
     # Configuration pour la fiabilité
     acks='all',  # Attendre l'accusé de réception de tous les réplicas
     retries=3,
-    max_in_flight_requests_per_connection=1
+    max_in_flight_requests_per_connection=1,
+    # Configuration du partitioner
+    partitioner=default_partitioner
 )
 
 def send_message(topic, key, message):
