@@ -7,6 +7,7 @@ This repository contains examples of Apache Kafka implementations in Java and Py
 ### Java Examples (Maven-based)
 - **kafka-producer-java**: Basic Kafka producer example
 - **kafka-consumer-java**: Basic Kafka consumer example
+- **kafka-consumer-group-java**: Consumer group example demonstrating load balancing
 - **kafka-streams-java**: Kafka Streams processing example
 - **kafka-ksqldb-java**: ksqlDB integration example
 - **kafka-management-java**: Kafka administration and management example
@@ -14,6 +15,7 @@ This repository contains examples of Apache Kafka implementations in Java and Py
 ### Python Examples
 - **kafka-producer-python**: Basic Kafka producer example
 - **kafka-consumer-python**: Basic Kafka consumer example
+- **kafka-consumer-group-python**: Consumer group example demonstrating load balancing
 - **kafka-streams-python**: Kafka Streams processing example
 - **kafka-ksqldb-python**: ksqlDB integration example
 - **kafka-management-python**: Kafka administration and management example
