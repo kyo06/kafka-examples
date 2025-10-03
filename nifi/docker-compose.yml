@@ -2,11 +2,12 @@ services:
   nifi:
     image: apache/nifi:latest
     ports:
-      - "8080:8080"
+      - "8443:8443"
     environment:
-      NIFI_WEB_HTTP_PORT: 8080
+      NIFI_WEB_HTTP_PORT: 8443
+      SINGLE_USER_CREDENTIALS_USERNAME: admin
+      SINGLE_USER_CREDENTIALS_PASSWORD: admin
     volumes:
-      - ./nifi_data:/opt/nifi/nifi-current
-      - ./tmp:/nifi-tmp
+      - ./tmp:/tmp
       - ./input:/input
       - ./output:/output
